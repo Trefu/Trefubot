@@ -14,7 +14,6 @@ let randomPokemonNum = () => Math.floor(Math.random() * 151 + 1)
 bot.on("ready", () => {
     bot.user.setStatus("dnd")
     console.log(`Bot listo como ${bot.user.tag}`)
-
 })
 
 bot.on("message", msg => {
@@ -30,12 +29,9 @@ bot.on("message", msg => {
     if (command === "") return msg.reply("Y si mandas comandos bodegon de pastas?")
     switch (command) {
         case "pack":
+
             if (!msg.channel.nsfw) return msg.channel.send("NO TE DESUBIQUES " + dataT.insult.toUpperCase())
-            if (args[0] === "help") return msg.channel.send(`Comandos de pack: ` + dataT.packCommands.forEach(c => {
-
-                }
-
-            ))
+            if (args[0] === "help" || !dataT.packCommands.includes(args[0])) return msg.channel.send(`Comandos de pack:\n*` + dataT.packCommands.join("\n*"))
             loveyou.nsfw(args[0] || "boobs").then(url => msg.channel.send(new Discord.MessageEmbed().setImage(url)));
             break;
 
@@ -55,7 +51,6 @@ bot.on("message", msg => {
         default:
             msg.reply("Comando inexistente")
     }
-
 })
 
 bot.login(token)

@@ -41,7 +41,7 @@ bot.on("message", msg => {
             break;
 
         case "pokemon":
-            fetch("https://pokeapi.co/api/v2/pokemon/" + randomPokemonNum)
+            fetch("https://pokeapi.co/api/v2/pokemon/" + randomPokemonNum())
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data)

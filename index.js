@@ -1,4 +1,5 @@
-const loveyou = require("loveyou-api");
+const NSFW = require("nsfw-discord");
+const nsfw = new NSFW();
 const fetch = require("node-fetch")
 const Discord = require('discord.js');
 const dataT = require("./data.js")
@@ -22,7 +23,7 @@ bot.on("message", msg => {
     if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
     // argumentos usados para el bot
-    const args = msg.content.slice(prefix.length).trim().split(' ');
+    let args = msg.content.slice(prefix.length).trim().split(' ');
 
     // comando que recibe primero
     const command = args.shift().toLowerCase();
@@ -30,21 +31,28 @@ bot.on("message", msg => {
     if (command === "") return msg.reply("Y si mandas comandos bodegon de pastas?")
     switch (command) {
         case "pack":
-            if (!msg.channel.nsfw) return msg.channel.send("NO TE DESUBIQUES " + dataT.insult.toUpperCase())
-            if (args[0] === "help" || !dataT.packCommands.includes(args[0])) return msg.channel.send(`Comandos de pack:\n*` + dataT.packCommands.join("\n*"))
-            fetch("https://love-you.xyz/api/v2/" + args[0] || "boobs")
-                .then(url => msg.channel.send(new Discord.MessageEmbed().setImage(url)))
-                .catch(error => {
-                    msg.reply("disculpa capo pero toy medio resfriado y no puedo mandar nada",
-                        console.log(error))
-                });
+            if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw")
+            if (!args[0]) args[0] = dataT.getRandomValueFromArr(nsfw.methods);
+            if (args[0] === "help" || !nsfw.methods.includes(args[0]))
+                return msg.channel.send(`lista de comandos de pack:\n*` + nsfw.methods.join("\n*"))
+            fetch("https://nekobot.xyz/api/image?type=" + args[0])
+                .then(res => res.json())
+                .then(data => {
+                    const EmbedMsg = new Discord.MessageEmbed()
+                        .setAuthor(args[0])
+                        .setColor(data.color)
+                        .setImage(data.message)
+                    msg.channel.send(EmbedMsg)
+                    return
+                })
+                .catch(error => console.log(error))
             break;
 
         case "pokemon":
             fetch("https://pokeapi.co/api/v2/pokemon/" + randomPokemonNum())
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
+                    //console.log(data)
                     const exampleEmbed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setAuthor(data.name.toUpperCase())

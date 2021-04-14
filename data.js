@@ -8,9 +8,14 @@ const insult = ["Terrorista de pastas", "Bodegon de bischochitos de grasa", "Gal
     "LISIADO ABORTO DE UN MONO CON SÍFILIS, ME ESTÁ DANDO UN INFARTO",
 ]
 const nombres = ["TETAS DE COBAYO", "WASKA DE CURA", "VIOLADOR DE NIÑOS", "ESCUPIDOR DE ANOS", "CHUPA PIJAS", "BOLSA DE GUAMPAS", "FAN DE IRON MAIDEN", "ESTAFADOR DE MERCADOLIBRE", "MENDOCIZO DROGADICTO"]
-const packCommands = ["boobs", "pussy", "ass", 'missionary', 'cowgirl', 'doggystyle', 'blowjob', 'cumshots',
-    'hentai'
-]
+const packCommands = ["Anal", "4K", "Gonewild", 'Ass', 'Solo', 'Wallpaper', 'Porngif', 'Pussy', "Thigh", "Boobs"]
+
+
+
+
+
+
+
 const getRandomValueFromArr = (arr) => {
     return arr[(Math.floor(Math.random() * arr.length))]
 }

@@ -30,7 +30,6 @@ bot.on("message", msg => {
     if (command === "") return msg.reply("Y si mandas comandos bodegon de pastas?")
     switch (command) {
         case "pack":
-
             if (!msg.channel.nsfw) return msg.channel.send("NO TE DESUBIQUES " + dataT.insult.toUpperCase())
             if (args[0] === "help" || !dataT.packCommands.includes(args[0])) return msg.channel.send(`Comandos de pack:\n*` + dataT.packCommands.join("\n*"))
             fetch("https://love-you.xyz/api/v2/" + args[0] || "boobs")
@@ -42,7 +41,7 @@ bot.on("message", msg => {
             break;
 
         case "pokemon":
-            loveyou.nsfw(args[0] || dataT.getRandomValueFromArr(dataT.packCommands))
+            fetch("https://pokeapi.co/api/v2/pokemon/" + randomPokemonNum)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data)

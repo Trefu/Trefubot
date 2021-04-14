@@ -8,7 +8,15 @@ const insult = ["Terrorista de pastas", "Bodegon de bischochitos de grasa", "Gal
     "LISIADO ABORTO DE UN MONO CON SÍFILIS, ME ESTÁ DANDO UN INFARTO",
 ]
 const nombres = ["TETAS DE COBAYO", "WASKA DE CURA", "VIOLADOR DE NIÑOS", "ESCUPIDOR DE ANOS", "CHUPA PIJAS", "BOLSA DE GUAMPAS", "FAN DE IRON MAIDEN", "ESTAFADOR DE MERCADOLIBRE", "MENDOCIZO DROGADICTO"]
-const packCommands = ["Anal", "4K", "Gonewild", 'Ass', 'Solo', 'Wallpaper', 'Porngif', 'Pussy', "Thigh", "Boobs"]
+const packMethods = [
+    "anal",
+    "ass",
+    "gonewild",
+    "pgif",
+    "pussy",
+    "thigh",
+    "boobs",
+];
 
 
 
@@ -33,5 +41,5 @@ module.exports.getResponse = getResponse;
 module.exports.getName = getName;
 module.exports.nombres = nombres
 module.exports.insult = getRandomValueFromArr(insult)
-module.exports.packCommands = packCommands;
+module.exports.packMethods = packMethods;
 module.exports.getRandomValueFromArr = getRandomValueFromArr;

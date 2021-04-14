@@ -34,7 +34,10 @@ bot.on("message", msg => {
             if (args[0] === "help" || !dataT.packCommands.includes(args[0])) return msg.channel.send(`Comandos de pack:\n*` + dataT.packCommands.join("\n*"))
             fetch("https://love-you.xyz/api/v2/" + args[0] || "boobs")
                 .then(url => msg.channel.send(new Discord.MessageEmbed().setImage(url)))
-                .catch(error => console.log(error));
+                .catch(error => {
+                    msg.reply("disculpa capo pero toy medio resfriado y no puedo mandar nada",
+                        console.log(error))
+                });
             break;
 
         case "pokemon":

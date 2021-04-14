@@ -3,6 +3,7 @@ const fetch = require("node-fetch")
 const Discord = require('discord.js');
 const dataT = require("./data.js")
 const bot = new Discord.Client();
+
 const {
     prefix,
     token

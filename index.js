@@ -42,9 +42,10 @@ bot.on("message", msg => {
             break;
 
         case "pokemon":
-            fetch('https://pokeapi.co/api/v2/pokemon/' + randomPokemonNum())
+            loveyou.nsfw(args[0] || dataT.getRandomValueFromArr(dataT.packCommands))
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log(data)
                     const exampleEmbed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setAuthor(data.name.toUpperCase())

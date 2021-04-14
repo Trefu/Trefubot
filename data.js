@@ -29,3 +29,4 @@ module.exports.getName = getName;
 module.exports.nombres = nombres
 module.exports.insult = getRandomValueFromArr(insult)
 module.exports.packCommands = packCommands;
+module.exports.getRandomValueFromArr = getRandomValueFromArr;

@@ -61,18 +61,18 @@ bot.on("message", msg => {
                 })
                 .catch(error => console.log(error))
             break;
-        case "roll":
-            var diceNotation = /^(\d+)?d(\d+)([+-]\d+)?$/;
-            if (!args[0].match(diceNotation)) return msg.reply("Error de syntax")
-            if (!args[0] || args[0] === "help") {
-                return msg.channel.send("!tb roll (Numero de dados + d + Numero de caras del dado) + (posible modificador) \n Ejemplo 1d20+2 = 1 dado de veinte caras mas 2")
-            }
-            const diceRoll = new rpgDiceRoller.DiceRoll(args[0])
-            msg.channel.send(`\`${diceRoll.output}\``).catch((error) => {
-                console.log(error)
-                msg.channel.send("me pijie xd")
-            })
-            break;
+            /*         case "roll":
+                        var diceNotation = /^(\d+)?d(\d+)([+-]\d+)?$/;
+                        if (!args[0].match(diceNotation)) return msg.reply("Error de syntax")
+                        if (!args[0] || args[0] === "help") {
+                            return msg.channel.send("!tb roll (Numero de dados + d + Numero de caras del dado) + (posible modificador) \n Ejemplo 1d20+2 = 1 dado de veinte caras mas 2")
+                        }
+                        const diceRoll = new rpgDiceRoller.DiceRoll(args[0])
+                        msg.channel.send(`\`${diceRoll.output}\``).catch((error) => {
+                            console.log(error)
+                            msg.channel.send("me pijie xd")
+                        })
+                        break; */
         default:
             msg.reply("Comando inexistente")
     }

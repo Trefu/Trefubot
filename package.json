@@ -1,7 +1,7 @@
 {
   "name": "discordbot",
   "engines": {
-    "node": "12.11.1"
+    "node": "14.16.0"
   },
   "version": "1.0.0",
   "description": "",
@@ -20,3 +20,4 @@
     "rpg-dice-roller": "^4.5.2"
   }
 }
+ 

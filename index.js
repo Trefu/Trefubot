@@ -30,17 +30,18 @@ bot.on("message", msg => {
     if (command === "") return msg.reply("Y si mandas comandos bodegon de pastas?")
     switch (command) {
         case "pack":
+            const reqPack = args[0];
             if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw")
-            if (!args[0]) args[0] = dataT.getRandomValueFromArr(dataT.packMethods);
-            if (args[0] === "help" || !dataT.packMethods.includes(args[0]))
+            if (!args[0]) reqPack = dataT.getRandomValueFromArr(dataT.packMethods);
+            if (reqPack === "help" || !dataT.packMethods.includes(reqPack))
                 return msg.channel.send(`lista de comandos de pack:\n*` + dataT.packMethods.join("\n*"))
-            fetch("https://love-you.xyz/api/v2/" + args[0])
+            fetch("https://love-you.xyz/api/v2/" + reqPack)
                 .then(res => res.json())
                 .then(data => {
                     const EmbedMsg = new Discord.MessageEmbed()
-                        .setAuthor(args[0])
-                        .setColor(data.color)
-                        .setImage(data.message)
+                        .setAuthor(reqPack)
+                        .setColor("RED")
+                        .setImage(data.url)
                     msg.channel.send(EmbedMsg)
                     return
                 })

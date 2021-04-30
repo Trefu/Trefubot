@@ -34,7 +34,7 @@ bot.on("message", msg => {
             if (!args[0]) args[0] = dataT.getRandomValueFromArr(dataT.packMethods);
             if (args[0] === "help" || !dataT.packMethods.includes(args[0]))
                 return msg.channel.send(`lista de comandos de pack:\n*` + dataT.packMethods.join("\n*"))
-            fetch("https://nekobot.xyz/api/image?type=" + args[0])
+            fetch("https://love-you.xyz/api/v2/" + args[0])
                 .then(res => res.json())
                 .then(data => {
                     const EmbedMsg = new Discord.MessageEmbed()

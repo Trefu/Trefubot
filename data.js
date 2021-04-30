@@ -9,13 +9,15 @@ const insult = ["Terrorista de pastas", "Bodegon de bischochitos de grasa", "Gal
 ]
 const nombres = ["TETAS DE COBAYO", "WASKA DE CURA", "VIOLADOR DE NIÑOS", "ESCUPIDOR DE ANOS", "CHUPA PIJAS", "BOLSA DE GUAMPAS", "FAN DE IRON MAIDEN", "ESTAFADOR DE MERCADOLIBRE", "MENDOCIZO DROGADICTO"]
 const packMethods = [
-    "anal",
-    "ass",
-    "gonewild",
-    "pgif",
-    "pussy",
-    "thigh",
     "boobs",
+    "pussy",
+    "ass",
+    "missionary",
+    "cowgirl",
+    "doggystyle",
+    "blowjob",
+    "cumshots",
+    "hentai"
 ];
 
 

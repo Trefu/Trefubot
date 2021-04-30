@@ -30,7 +30,7 @@ bot.on("message", msg => {
     if (command === "") return msg.reply("Y si mandas comandos bodegon de pastas?")
     switch (command) {
         case "pack":
-            const reqPack = args[0];
+            var reqPack = args[0];
             if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw")
             if (!args[0]) reqPack = dataT.getRandomValueFromArr(dataT.packMethods);
             if (reqPack === "help" || !dataT.packMethods.includes(reqPack))

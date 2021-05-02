@@ -1,51 +1,55 @@
-const rpgDiceRoller = require('rpg-dice-roller');
-const fetch = require("node-fetch")
+require("dotenv").config();
+require("./utils.js");
+const fetch = require("node-fetch");
 const Discord = require('discord.js');
-const dataT = require("./data.js")
 const bot = new Discord.Client();
+const TOKEM = process.env.TOKEM_DISCORD;
 
 const {
-    prefix,
-    token
+    prefix
 } = require('./config.json');
+const {
+    pack
+} = require("./commands.js");
+const {
+    pokemons,
+    fetchAllPokemons
+} = require("./utils.js");
 
-let randomPokemonNum = () => Math.floor(Math.random() * 151 + 1)
 
-//user es el objeto del bot
-bot.on("ready", () => {
-    bot.user.setStatus("dnd")
-    console.log(`Bot listo como ${bot.user.tag}`)
+bot.on("ready", async () => {
+    bot.user.setStatus("dnd");
+    console.log(`Bot listo como ${bot.user.tag} ✅✅✅❎❎`);
 })
 
 bot.on("message", msg => {
     //si el mensaje no empieza con el prefix o es un bot se va ignora3 ⛔
     if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
-    // argumentos usados para el bot
-    let args = msg.content.slice(prefix.length).trim().split(' ');
+    //divide cada palabra del msg recibido en un array (ignora el prefix con el slice)
+    const args = msg.content.slice(prefix.length).trim().split(' ');
 
-    // comando que recibe primero
+    //quita la primer palabra del array para usarla de comando, el resto queda para usar de opciones/argumentos
     const command = args.shift().toLowerCase();
 
-    if (command === "") return msg.reply("Y si mandas comandos bodegon de pastas?")
+    if (command === "") return msg.reply("No se envio ningun comando");
+
     switch (command) {
+        case "test":
+            let name = args[0];
+            let pokemonEncontrado = pokemons.find(obj => obj.name = name);
+            if (!pokemonEncontrado) return msg.reply("no lo encontra pá, mil disculpas, soy un bot de mierda");
+            let stats = pokemonEncontrado.stats.map(s => {
+                //retornar objecto con nombrey  stat
+            })
+            console.log(stats)
+
+            //let a = pokemons.find(p => p.name === "mew")
+
+            break;
         case "pack":
-            var reqPack = args[0];
-            if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw")
-            if (!args[0]) reqPack = dataT.getRandomValueFromArr(dataT.packMethods);
-            if (reqPack === "help" || !dataT.packMethods.includes(reqPack))
-                return msg.channel.send(`lista de comandos de pack:\n*` + dataT.packMethods.join("\n*"))
-            fetch("https://love-you.xyz/api/v2/" + reqPack)
-                .then(res => res.json())
-                .then(data => {
-                    const EmbedMsg = new Discord.MessageEmbed()
-                        .setAuthor(reqPack)
-                        .setColor("RED")
-                        .setImage(data.url)
-                    msg.channel.send(EmbedMsg)
-                    return
-                })
-                .catch(error => console.log(error))
+            if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw");
+            pack(args, msg);
             break;
 
         case "pokemon":
@@ -61,24 +65,10 @@ bot.on("message", msg => {
                     msg.channel.send(exampleEmbed)
                 })
                 .catch(error => console.log(error))
-            break;
-            /*  case "roll":
-                 var diceNotation = /^(\d+)?d(\d+)([+-]\d+)?$/;
-                 if (!args[0].match(diceNotation)) return msg.reply("Error de syntax")
-                 if (!args[0] || args[0] === "help") {
-                     return msg.channel.send("!tb roll (Numero de dados + d + Numero de caras del dado) + (posible modificador) \n Ejemplo 1d20+2 = 1 dado de veinte caras mas 2")
-                 }
-                 const diceRoll = new rpgDiceRoller.DiceRoll(args[0])
-                 msg.channel.send(`\`${diceRoll.output}\``).catch((error) => {
-                         console.log(error)
-                         msg.channel.send("me pijie xd")
-                     })
-                     .catch(error => console.log(error))
-                 break; */
         default:
             msg.reply("Comando inexistente")
     }
 })
 
 
-bot.login(token)
+bot.login(TOKEM)

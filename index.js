@@ -4,7 +4,11 @@ const fetch = require("node-fetch");
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const TOKEM = process.env.TOKEM_DISCORD;
+var trainersContainer = [];
 
+const {
+    Trainer
+} = require('./clases/Trainer')
 const {
     prefix
 } = require('./config.json');
@@ -39,10 +43,16 @@ bot.on("message", msg => {
             let name = args[0];
             let pokemonEncontrado = pokemons.find(obj => obj.name = name);
             if (!pokemonEncontrado) return msg.reply("no lo encontra pá, mil disculpas, soy un bot de mierda");
-            let stats = pokemonEncontrado.stats.map(s => {
-                //retornar objecto con nombrey  stat
-            })
-            console.log(stats)
+            let stats = pokemonEncontrado.stats.map(stats => ({
+                name: stats.stat.name,
+                value: stats.base_stat
+            }))
+            let res = [];
+            stats.forEach(s => res.push(`\n${s.name}: ${s.value}`))
+            res.join(" ")
+            msg.channel.send(res)
+
+
 
             //let a = pokemons.find(p => p.name === "mew")
 
@@ -65,6 +75,28 @@ bot.on("message", msg => {
                     msg.channel.send(exampleEmbed)
                 })
                 .catch(error => console.log(error))
+            break;
+        case "start":
+            let trainerName = msg.author.username;
+            if (trainersContainer.some(t => t.name === trainerName)) return msg.reply("Ya existe un entrenador con ese nombre")
+            var trainer = new Trainer(trainerName, msg.author.displayAvatarURL())
+            trainersContainer.push(trainer)
+            console.log(trainersContainer)
+            msg.channel.send(trainer.stats())
+            break;
+        case "my":
+            let myCommand = args[0];
+            if (myCommand === "stats") {
+                let nametarget = args[0];
+                let target = trainersContainer.find(t => t.name = nametarget);
+                msg.channel.send(target.stats())
+            } else {
+                msg.reply("ni idea que pusiste pelotudo")
+            }
+
+
+
+            break;
         default:
             msg.reply("Comando inexistente")
     }

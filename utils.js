@@ -49,7 +49,7 @@ function fetchPokemonData(pokemon) {
 
 //Obtiene un json con los primeros 151 pokemons(este contiene su nombre y una URL con sus datos y estadisticas.)
 function fetchAllPokemons() {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=22')
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
         .then(response => response.json())
         .then(allpokemons =>
             allpokemons.results.forEach(pokemon =>

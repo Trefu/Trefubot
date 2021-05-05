@@ -81,21 +81,26 @@ bot.on("message", msg => {
             if (trainersContainer.some(t => t.name === trainerName)) return msg.reply("Ya existe un entrenador con ese nombre")
             var trainer = new Trainer(trainerName, msg.author.displayAvatarURL())
             trainersContainer.push(trainer)
-            console.log(trainersContainer)
+            trainer.randomPokemons()
+            trainer.randomPokemons()
+            trainer.randomPokemons()
+            console.log("ENTrENADOR AGREGADO", trainersContainer)
+
             msg.channel.send(trainer.stats())
             break;
         case "my":
             let myCommand = args[0];
             if (myCommand === "stats") {
-                let nametarget = args[0];
+                let nametarget = msg.author.username;
                 let target = trainersContainer.find(t => t.name = nametarget);
-                msg.channel.send(target.stats())
+
+                target ?
+                    msg.channel.send(target.stats()) :
+                    msg.reply("!T start para crear entrenador")
+
             } else {
-                msg.reply("ni idea que pusiste pelotudo")
+                return msg.reply("ni idea que pusiste pelotudo")
             }
-
-
-
             break;
         default:
             msg.reply("Comando inexistente")

@@ -58,6 +58,12 @@ function fetchAllPokemons() {
         .catch(error => console.log(error))
 };
 
+function printPokemonsStats(pokemon) {
+    var str = [];
+    const emojisStats = ["❤", "⚔", "🛡", "🌀", "🎆", "👟"]
+    pokemon.stats.forEach((s, i) => str.push(`\n${emojisStats[i]} ${s.name}: ${s.value}`))
+    return str.join(" ")
+}
 fetchAllPokemons();
 
 module.exports = {
@@ -66,6 +72,7 @@ module.exports = {
     generateRandomNum: generateRandomNum,
     EmojisType,
     fetchAllPokemons,
-    pokemons
+    pokemons,
+    printPokemonsStats
 
 }

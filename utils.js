@@ -1,16 +1,8 @@
 const fetch = require("node-fetch");
-const packMethods = [
-    "boobs",
-    "pussy",
-    "ass",
-    "missionary",
-    "cowgirl",
-    "doggystyle",
-    "blowjob",
-    "cumshots",
-    "hentai"
-];
-const EmojisType = {
+
+const commandsList = ["Prefix: !T", "start: crea un entrenador y obtiene tres pokemons aleatorios", "my stats: muestra las estadisticas del entrenador que envia el comando", "my pokemons: muestra los pokemons que el traine actual posee junto sus estadisticas"]
+
+const EMOJIS_TYPES = {
     normal: "😒",
     fire: "🔥",
     water: "💧",
@@ -25,8 +17,10 @@ const EmojisType = {
     ghost: "👻",
     psychic: "🔮",
     steel: "⚙",
-    rock: "🗻"
+    rock: "🗻",
+    electric: "☀"
 }
+
 var pokemons = [];
 
 const getRandomValueFromArr = (arr) => {
@@ -44,7 +38,6 @@ function fetchPokemonData(pokemon) {
             pokemons.push(pokemonData)
         })
         .catch(e => console.log(e))
-
 }
 
 //Obtiene un json con los primeros 151 pokemons(este contiene su nombre y una URL con sus datos y estadisticas.)
@@ -64,15 +57,18 @@ function printPokemonsStats(pokemon) {
     pokemon.stats.forEach((s, i) => str.push(`\n${emojisStats[i]} ${s.name}: ${s.value}`))
     return str.join(" ")
 }
+
+function printList(list) {
+    return list.join("\n");
+}
 fetchAllPokemons();
 
 module.exports = {
     arrRandomValue: getRandomValueFromArr,
-    packMethods: packMethods,
     generateRandomNum: generateRandomNum,
-    EmojisType,
-    fetchAllPokemons,
+    EMOJIS_TYPES,
     pokemons,
-    printPokemonsStats
-
+    printPokemonsStats,
+    printList,
+    commandsList
 }

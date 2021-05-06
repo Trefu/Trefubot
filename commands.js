@@ -1,20 +1,30 @@
 const {
-    arrRandomValue,
-    packMethods
-} = require("./utils");
+    arrRandomValue
+} = require("./utils")
+const {
+    Trainer
+} = require("./clases/Trainer")
+
+
 const fetch = require("node-fetch");
 const Discord = require('discord.js');
 
-const pack = function (args, msg) {
+const packMethods = [
+    "boobs",
+    "pussy",
+    "ass",
+    "missionary",
+    "cowgirl",
+    "doggystyle",
+    "blowjob",
+    "cumshots",
+    "hentai"
+];
+
+const pack = function (packEndpoint, msg) {
+
     const emoj = msg.guild.emojis.cache.find(emoj => emoj.name === "jmf14") || "🔥";
     msg.react(emoj);
-
-    var packEndpoint = args[0];
-    //si no se da un argumento para el pedido, se obtiene uno aleatorio
-    if (!args[0]) packEndpoint = arrRandomValue(packMethods);
-
-    if (!packMethods.includes(packEndpoint))
-        return msg.channel.send(`lista de comandos de pack:\n*` + packMethods.join("\n*"));
 
     fetch("https://love-you.xyz/api/v2/" + packEndpoint)
         .then(res => res.json())
@@ -29,6 +39,20 @@ const pack = function (args, msg) {
         .catch(error => console.log(error));
 }
 
+
+const start = function ({
+    msg,
+    container,
+    name
+}) {
+    var trainer = new Trainer(name, msg.author.displayAvatarURL())
+    container.push(trainer)
+    trainer.randomPokemons()
+    console.log("ENTRENADOR AGREGADO", container)
+
+    return msg.channel.send(trainer.stats())
+}
 module.exports = {
-    pack
+    pack,
+    start
 }

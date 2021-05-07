@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const TOKEM = process.env.TOKEM_DISCORD;
 var trainersContainer = [];
+var trainerBot;
 const {
     pokemonEmbed
 } = require("./assets/PokemonMsg")
@@ -25,11 +26,16 @@ const {
     arrRandomValue,
     printPokemonsStats
 } = require("./utils.js");
+const {
+    TrainerBot
+} = require("./clases/TrainerBot.js");
 
 
 bot.on("ready", async () => {
     bot.user.setStatus("dnd");
     console.log(`Bot listo como ${bot.user.tag} ✅✅✅❎❎`);
+
+
 })
 
 bot.on("message", msg => {
@@ -51,18 +57,20 @@ bot.on("message", msg => {
             break;
 
         case "test":
-
-            let name = args[0];
-            let pokemonEncontrado = pokemons.find(obj => obj.name = name);
-            if (!pokemonEncontrado) return msg.reply("no lo encontra pá, mil disculpas, soy un bot de mierda");
-            let stats = pokemonEncontrado.stats.map(stats => ({
-                name: stats.stat.name,
-                value: stats.base_stat
-            }))
-            let res = [];
-            stats.forEach(s => res.push(`\n${s.name}: ${s.value}`))
-            res.join(" ")
-            msg.channel.send(res)
+            trainerBot = new TrainerBot();
+            trainerBot.randomPokemons()
+            msg.channel.send(trainerBot.stats())
+            /*  let name = args[0];
+             let pokemonEncontrado = pokemons.find(obj => obj.name = name);
+             if (!pokemonEncontrado) return msg.reply("no lo encontra pá, mil disculpas, soy un bot de mierda");
+             let stats = pokemonEncontrado.stats.map(stats => ({
+                 name: stats.stat.name,
+                 value: stats.base_stat
+             }))
+             let res = [];
+             stats.forEach(s => res.push(`\n${s.name}: ${s.value}`))
+             res.join(" ")
+             msg.channel.send(res) */
             //let a = pokemons.find(p => p.name === "mew")
             break;
 
@@ -116,8 +124,8 @@ bot.on("message", msg => {
                     break;
 
                 case "pokemons":
-
                     trainer.pokemons.forEach(p => msg.channel.send(pokemonEmbed(p)));
+
                     break;
 
                 default:

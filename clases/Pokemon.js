@@ -5,7 +5,7 @@ class Pokemon {
         this.stats = stats;
         this.avatar = avatar;
         this.types = types;
-
+        this.moves = [];
     }
 }
 

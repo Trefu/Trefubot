@@ -113,6 +113,8 @@ bot.on("message", msg => {
         case "my":
             var myArg = args[0];
             let nametarget = msg.author.username;
+            nametarget === msg.author.username ? nametarget : nametarget = msg.author.username;
+
             let trainer = trainersContainer.find(t => t.name = nametarget);
             if (!trainer) return msg.reply("!T start para crear entrenador");
 

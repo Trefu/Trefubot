@@ -42,7 +42,7 @@ class Trainer {
 
 
     }
-    stats(msg) {
+    stats() {
         return trainerEmbed(this)
     }
 }

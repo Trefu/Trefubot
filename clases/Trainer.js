@@ -37,7 +37,7 @@ class Trainer {
 
             let pokemonsInstance = new Pokemon(pokemonName, pokemonStats, pokemonAvatar, pokemonTypes, pokemonOwner);
             this.pokemons.push(pokemonsInstance);
-            console.log(this.pokemons);
+
         }
 
 

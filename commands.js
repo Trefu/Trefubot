@@ -43,9 +43,8 @@ const pack = function (packEndpoint, msg) {
 const start = function ({
     msg,
     container,
-    name
 }) {
-    var trainer = new Trainer(name, msg.author.displayAvatarURL())
+    var trainer = new Trainer(msg.author.username, msg.author.displayAvatarURL())
     container.push(trainer)
     trainer.randomPokemons()
     console.log("ENTRENADOR AGREGADO", container)

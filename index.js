@@ -100,26 +100,21 @@ bot.on("message", msg => {
             break;
 
         case "start":
-            let trainerName = msg.author.username;
-            if (trainersContainer.some(t => t.name === trainerName)) return msg.reply("Ya tenes entrenador capo")
 
+            if (trainersContainer.some(t => t.name === msg.author.name)) return msg.reply("Ya tenes entrenador capo")
             start({
-                name: trainerName,
                 msg: msg,
                 container: trainersContainer
             })
-
             break;
+
         case "my":
             var myArg = args[0];
-            let nametarget = msg.author.username;
-            nametarget === msg.author.username ? nametarget : nametarget = msg.author.username;
+            var trainer = trainersContainer.find(t => t.name === msg.author.username);
 
-            let trainer = trainersContainer.find(t => t.name = nametarget);
             if (!trainer) return msg.reply("!T start para crear entrenador");
 
             switch (myArg) {
-
                 case "stats":
                     msg.channel.send(trainer.stats())
                     break;
@@ -132,6 +127,7 @@ bot.on("message", msg => {
                     msg.reply("ni idea que pusiste pelotudo")
                     break;
             }
+
             break;
         default:
             msg.reply("Comando inexistente, lista de comandos: \n" + printList(commandsList));

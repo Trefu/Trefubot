@@ -33,8 +33,9 @@ class Trainer {
             let pokemonTypes = newPokemon.types.map(t => ({
                 name: t.type.name
             }));
+            let pokemonOwner = this.name;
 
-            let pokemonsInstance = new Pokemon(pokemonName, pokemonStats, pokemonAvatar, pokemonTypes);
+            let pokemonsInstance = new Pokemon(pokemonName, pokemonStats, pokemonAvatar, pokemonTypes, pokemonOwner);
             this.pokemons.push(pokemonsInstance);
             console.log(this.pokemons);
         }

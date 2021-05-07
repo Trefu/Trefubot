@@ -119,13 +119,11 @@ bot.on("message", msg => {
             switch (myArg) {
 
                 case "stats":
-
                     msg.channel.send(trainer.stats())
                     break;
 
                 case "pokemons":
                     trainer.pokemons.forEach(p => msg.channel.send(pokemonEmbed(p)));
-
                     break;
 
                 default:

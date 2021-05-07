@@ -9,7 +9,7 @@ const {
 const pokemonEmbed = (pokemon) => {
     var embedDatos = new Discord.MessageEmbed()
         .setThumbnail(pokemon.avatar)
-        .setTitle(`Stats from ${pokemon.name.toUpperCase()}`)
+        .setTitle(`Stats from ${pokemon.name.toUpperCase()} owned by ${pokemon.owner}`)
         .setColor(0x00AE86)
         .addField("STATS\n", printPokemonsStats(pokemon));
     pokemon.types.forEach(t => embedDatos.addField("Type", `${t.name.toUpperCase()} ${EMOJIS_TYPES[t.name]}`))

@@ -49,7 +49,7 @@ const start = function ({
     trainer.randomPokemons()
     console.log("ENTRENADOR AGREGADO", container)
 
-    return msg.channel.send(trainer.stats())
+    return msg.channel.send(trainer.stats(msg))
 }
 module.exports = {
     pack,

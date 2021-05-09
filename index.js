@@ -38,7 +38,7 @@ bot.on("ready", async () => {
 
 })
 
-bot.on("message", msg => {
+bot.on("message", async msg => {
     //si el mensaje no empieza con el prefix o es un bot se va ignora3 ⛔
     if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
@@ -56,22 +56,11 @@ bot.on("message", msg => {
             msg.reply(printList(commandsList));
             break;
 
-        case "test":
-            trainerBot = new TrainerBot();
-            trainerBot.randomPokemons()
-            msg.channel.send(trainerBot.stats())
-            /*  let name = args[0];
-             let pokemonEncontrado = pokemons.find(obj => obj.name = name);
-             if (!pokemonEncontrado) return msg.reply("no lo encontra pá, mil disculpas, soy un bot de mierda");
-             let stats = pokemonEncontrado.stats.map(stats => ({
-                 name: stats.stat.name,
-                 value: stats.base_stat
-             }))
-             let res = [];
-             stats.forEach(s => res.push(`\n${s.name}: ${s.value}`))
-             res.join(" ")
-             msg.channel.send(res) */
-            //let a = pokemons.find(p => p.name === "mew")
+        case "e":
+
+            const emojiList = msg.guild.emojis.cache.map(e => e);
+            console.log(emojiList)
+            msg.channel.send(emojiList);
             break;
 
         case "pack":
@@ -116,11 +105,11 @@ bot.on("message", msg => {
 
             switch (myArg) {
                 case "stats":
-                    msg.channel.send(trainer.stats())
+                    msg.channel.send(trainer.stats(msg))
                     break;
 
                 case "pokemons":
-                    trainer.pokemons.forEach(p => msg.channel.send(pokemonEmbed(p)));
+                    trainer.pokemons.forEach(p => msg.channel.send(pokemonEmbed(p, msg)));
                     break;
 
                 default:

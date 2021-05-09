@@ -21,6 +21,15 @@ const EMOJIS_TYPES = {
     electric: "☀"
 }
 
+const statsNames = {
+    "hp": "",
+    "attack": "",
+    "defense": "",
+    "special-attack": "",
+    "special-defense": "",
+    "speed": ""
+}
+
 var pokemons = [];
 
 const getRandomValueFromArr = (arr) => {
@@ -51,10 +60,16 @@ function fetchAllPokemons() {
         .catch(error => console.log(error))
 };
 
-function printPokemonsStats(pokemon) {
+function printPokemonsStats(pokemon, msg) {
+
     var str = [];
-    const emojisStats = ["❤", "⚔", "🛡", "🌀", "🎆", "👟"]
-    pokemon.stats.forEach((s, i) => str.push(`\n${emojisStats[i]} ${s.name}: ${s.value}`))
+    const auxEmojis = ["❤", "⚔", "🛡", "🌀", "🎆", "👟"];
+
+    pokemon.stats.forEach((s, i) => {
+        const statEmoji = msg.guild.emojis.cache.find(emoj => emoj.name === s.name) || auxEmojis[i];
+        str.push(`\n${statEmoji}: ${s.value}`)
+    })
+
     return str.join(" ")
 }
 

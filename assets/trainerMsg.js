@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const {
     printPokemonsStats
 } = require("../utils")
-const trainerEmbed = (trainer) => {
+const trainerEmbed = (trainer, msg) => {
     var embedDatos = new Discord.MessageEmbed()
         .setThumbnail(trainer.avatar)
         .setTitle(`Stats from ${trainer.name}`)
@@ -10,7 +10,7 @@ const trainerEmbed = (trainer) => {
         .addField(`RECORD`, `✅ WINS: ${trainer.wins}\n❌ LOSES: ${trainer.loses}`)
         .setTimestamp()
 
-    trainer.pokemons.forEach(p => embedDatos.addField(`${p.name.toUpperCase()}`, printPokemonsStats(p), true))
+    trainer.pokemons.forEach(p => embedDatos.addField(`${p.name.toUpperCase()}`, printPokemonsStats(p, msg), true))
 
     return embedDatos
 }

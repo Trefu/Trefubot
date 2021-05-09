@@ -27,7 +27,7 @@ class Trainer {
             let pokemonName = newPokemon.name;
             let pokemonAvatar = newPokemon.sprites.front_default;
             let pokemonStats = newPokemon.stats.map(stats => ({
-                name: stats.stat.name,
+                name: stats.stat.name.replace(/[^a-zA-Z ]/g, ""),
                 value: stats.base_stat
             }));
             let pokemonTypes = newPokemon.types.map(t => ({
@@ -42,8 +42,8 @@ class Trainer {
 
 
     }
-    stats() {
-        return trainerEmbed(this)
+    stats(msg) {
+        return trainerEmbed(this, msg)
     }
 }
 

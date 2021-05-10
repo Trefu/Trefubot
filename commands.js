@@ -9,17 +9,7 @@ const {
 const fetch = require("node-fetch");
 const Discord = require('discord.js');
 
-const packMethods = [
-    "boobs",
-    "pussy",
-    "ass",
-    "missionary",
-    "cowgirl",
-    "doggystyle",
-    "blowjob",
-    "cumshots",
-    "hentai"
-];
+
 
 const pack = function (packEndpoint, msg) {
 

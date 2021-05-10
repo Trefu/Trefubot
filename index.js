@@ -64,7 +64,17 @@ bot.on("message", async msg => {
             break;
 
         case "pack":
-
+            const packMethods = [
+                "boobs",
+                "pussy",
+                "ass",
+                "missionary",
+                "cowgirl",
+                "doggystyle",
+                "blowjob",
+                "cumshots",
+                "hentai"
+            ];
             var packEndpoint = args[0];
             if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw");
             if (!packEndpoint) packEndpoint = arrRandomValue(packMethods);

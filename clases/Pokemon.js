@@ -1,3 +1,5 @@
+const nats = []
+
 class Pokemon {
     constructor(name, stats, avatar, types, owner) {
         this.owner = owner

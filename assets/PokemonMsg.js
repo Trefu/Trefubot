@@ -8,15 +8,19 @@ const {
 
 const pokemonEmbed = (pokemon, msg) => {
 
+    const typeTxt = pokemon.types.map(t => `${t.name.toUpperCase()} ${EMOJIS_TYPES[t.name]}`);
+
     var embedDatos = new Discord.MessageEmbed()
         .setThumbnail(pokemon.avatar)
-        .setTitle(`Stats from ${pokemon.name.toUpperCase()} owned by ${pokemon.owner}`)
         .setColor(0x00AE86)
-        .addField("STATS\n", printPokemonsStats(pokemon, msg));
-    pokemon.types.forEach(t => embedDatos.addField("Type", `${t.name.toUpperCase()} ${EMOJIS_TYPES[t.name]}`))
+        .setTitle(`Stats from ${pokemon.name.toUpperCase()} owned by ${pokemon.owner}`)
+        .addField("LEVEL", pokemon.level, true)
+        .addField("NATURE", pokemon.nature.name.toUpperCase(), true)
+        .addField("TYPES", typeTxt, true)
+        .addField("STATS", `${printPokemonsStats(pokemon, msg)}`, true)
 
-    //trainer.pokemons.forEach(p => embedDatos.addField(`${p.name.toUpperCase()}`, printPokemonsStats(p), true))
-    return embedDatos
+        .addField("MOVES", pokemon.avaibleMovesNames().join("\n"), true)
+    return embedDatos;
 }
 
 module.exports = {

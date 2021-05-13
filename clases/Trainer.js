@@ -5,8 +5,7 @@ const {
     Pokemon
 } = require("./Pokemon")
 const {
-    arrRandomValue,
-    pokemons
+    pokemonFormater
 } = require("../utils")
 
 
@@ -22,32 +21,33 @@ class Trainer {
     }
     randomPokemons() {
         while (this.pokemons.length < 3) {
+            var newPokemon = pokemonFormater(this);
+            var pokemonsInstance = new Pokemon(newPokemon);
 
-            let newPokemon = arrRandomValue(pokemons);
-            let pokemonName = newPokemon.name;
-            let pokemonAvatar = newPokemon.sprites.front_default;
-            let pokemonStats = newPokemon.stats.map(stats => ({
-                name: stats.stat.name.replace(/[^a-zA-Z ]/g, ""),
-                value: stats.base_stat
-            }));
-            let pokemonTypes = newPokemon.types.map(t => ({
-                name: t.type.name
-            }));
-            let pokemonOwner = this.name;
-
-            let pokemonsInstance = new Pokemon(pokemonName, pokemonStats, pokemonAvatar, pokemonTypes, pokemonOwner);
+            //let pokemonsInstance = new Pokemon(pokemonName, pokemonStats, pokemonAvatar, pokemonTypes, pokemonOwner);
             this.pokemons.push(pokemonsInstance);
-
         }
-
-
+    }
+    add(pokemon) {
+        this.pokemons.push(pokemon)
     }
     stats(msg) {
         return trainerEmbed(this, msg)
     }
+    /*     init() {
+            this.pokemons.forEach(p => p.initRandom());
+            console.log(this.pokemons)
+
+        } */
+    consolePokemons() {
+        console.log(this.pokemons)
+    }
 }
 
 
+
+
+//falta  * pokemon.nature
 module.exports = {
     Trainer
 }

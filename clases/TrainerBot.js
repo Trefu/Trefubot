@@ -9,7 +9,8 @@ const {
 } = require("./Trainer")
 const {
     arrRandomValue,
-    pokemons
+    pokemons,
+    generateRandomNum
 } = require("../utils")
 
 

@@ -24,12 +24,16 @@ const {
     commandsList,
     printList,
     arrRandomValue,
-    printPokemonsStats
+    printPokemonsStats,
+    pokemonFormater
 } = require("./utils.js");
 const {
     TrainerBot
 } = require("./clases/TrainerBot.js");
-
+const {
+    natures,
+    Pokemon
+} = require("./clases/Pokemon")
 
 bot.on("ready", async () => {
     bot.user.setStatus("dnd");
@@ -49,20 +53,29 @@ bot.on("message", async msg => {
     const command = args.shift().toLowerCase();
 
     if (command === "") return msg.reply("No se envio ningun comando (!T help para una lista de comandos)");
-
+    let trainer;
+    let findPokemon;
     switch (command) {
-
+        case "add":
+            trainer = trainersContainer.find(t => t.name === msg.author.username);
+            findPokemon = args.shift();
+            findPokemon = pokemons.find(p => p.name === findPokemon);
+            if (!trainer || !findPokemon) return msg.channel.send("me he pijeao");
+            newPokemon = new Pokemon(pokemonFormater(trainer, findPokemon))
+            trainer.add(newPokemon);
+            break;
         case "help":
             msg.reply(printList(commandsList));
             break;
+        case "test":
+            trainer = trainersContainer.find(t => t.name === msg.author.username);
+            pokemonFind = args.shift();
+            pokemonFind = trainer.pokemons.find(p => p.name === pokemonFind);
 
-        case "e":
+            if (!trainer || !pokemonFind) return msg.channel.send("me he pijeao");
 
-            const emojiList = msg.guild.emojis.cache.map(e => e);
-            console.log(emojiList)
-            msg.channel.send(emojiList);
-            break;
-
+            msg.channel.send(pokemonFind.showMoves())
+            break
         case "pack":
             const packMethods = [
                 "boobs",
@@ -78,29 +91,11 @@ bot.on("message", async msg => {
             var packEndpoint = args[0];
             if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw");
             if (!packEndpoint) packEndpoint = arrRandomValue(packMethods);
-
             pack(packEndpoint, msg);
             break;
 
-        case "pokemon":
-
-            fetch("https://pokeapi.co/api/v2/pokemon/" + randomPokemonNum())
-                .then((response) => response.json())
-                .then((data) => {
-                    //console.log(data)
-                    const exampleEmbed = new Discord.MessageEmbed()
-                        .setColor('#0099ff')
-                        .setAuthor(data.name.toUpperCase())
-                        .setImage(data.sprites.front_default)
-                    data.types.forEach(t => exampleEmbed.addField('Tipo', t.type.name, true))
-                    msg.channel.send(exampleEmbed)
-                })
-                .catch(error => console.log(error))
-            break;
-
         case "start":
-
-            if (trainersContainer.some(t => t.name === msg.author.name)) return msg.reply("Ya tenes entrenador capo")
+            if (trainersContainer.some(t => t.name === msg.author.username)) return msg.reply("Ya tenes entrenador capo");
             start({
                 msg: msg,
                 container: trainersContainer
@@ -109,9 +104,15 @@ bot.on("message", async msg => {
 
         case "my":
             var myArg = args[0];
-            var trainer = trainersContainer.find(t => t.name === msg.author.username);
+            trainer = trainersContainer.find(t => t.name === msg.author.username);
+            trainerPokemonsNames = trainer.pokemons.map(p => p.name);
 
             if (!trainer) return msg.reply("!T start para crear entrenador");
+
+            if (trainerPokemonsNames.includes(myArg)) {
+                trainerPokemonToShow = trainer.pokemons.find(p => p.name === myArg);
+                return msg.channel.send(pokemonEmbed(trainerPokemonToShow, msg));
+            }
 
             switch (myArg) {
                 case "stats":
@@ -123,7 +124,7 @@ bot.on("message", async msg => {
                     break;
 
                 default:
-                    msg.reply("ni idea que pusiste pelotudo")
+                    msg.reply("My stats para ver estadisticas propias\nMy (nombre de pokemon en posesion para verlo)\nMy pokemons para ver todos los pokemons en posesion")
                     break;
             }
 

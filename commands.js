@@ -34,12 +34,14 @@ const start = function ({
     msg,
     container,
 }) {
+
     var trainer = new Trainer(msg.author.username, msg.author.displayAvatarURL())
     container.push(trainer)
     trainer.randomPokemons()
     console.log("ENTRENADOR AGREGADO", container)
 
     return msg.channel.send(trainer.stats(msg))
+
 }
 module.exports = {
     pack,

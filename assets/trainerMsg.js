@@ -10,7 +10,9 @@ const trainerEmbed = (trainer, msg) => {
         .addField(`RECORD`, `✅ WINS: ${trainer.wins}\n❌ LOSES: ${trainer.loses}`)
         .setTimestamp()
 
-    trainer.pokemons.forEach(p => embedDatos.addField(`${p.name.toUpperCase()}`, printPokemonsStats(p, msg), true))
+    trainer.pokemons.forEach(p => {
+        embedDatos.addField(`${p.name.toUpperCase()}`, printPokemonsStats(p, msg), true)
+    })
 
     return embedDatos
 }

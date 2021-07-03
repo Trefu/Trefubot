@@ -6,10 +6,19 @@ const bot = new Discord.Client();
 const TOKEM = process.env.TOKEM_DISCORD;
 var trainersContainer = [];
 var trainerBot;
-const { pokemonEmbed } = require("./assets/PokemonMsg");
-const { Trainer } = require("./clases/Trainer");
-const { prefix } = require("./config.json");
-const { pack, start } = require("./commands.js");
+const {
+  pokemonEmbed
+} = require("./assets/PokemonMsg");
+const {
+  Trainer
+} = require("./clases/Trainer");
+const {
+  prefix
+} = require("./config.json");
+const {
+  pack,
+  start
+} = require("./commands.js");
 const {
   pokemons,
   commandsList,
@@ -18,8 +27,13 @@ const {
   printPokemonsStats,
   pokemonFormater,
 } = require("./utils.js");
-const { TrainerBot } = require("./clases/TrainerBot.js");
-const { natures, Pokemon } = require("./clases/Pokemon");
+const {
+  TrainerBot
+} = require("./clases/TrainerBot.js");
+const {
+  natures,
+  Pokemon
+} = require("./clases/Pokemon");
 
 bot.on("ready", async () => {
   bot.user.setStatus("dnd");
@@ -64,6 +78,8 @@ bot.on("message", async (msg) => {
       msg.channel.send(pokemonFind.showMoves());
       break;
     case "pack":
+      if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw");
+      let packEndpoint
       const packMethods = [
         "boobs",
         "pussy",
@@ -75,9 +91,14 @@ bot.on("message", async (msg) => {
         "cumshots",
         "hentai",
       ];
-      var packEndpoint = args[0];
-      if (!msg.channel.nsfw) return msg.channel.send("Solo en canales Nsfw");
-      if (!packEndpoint) packEndpoint = arrRandomValue(packMethods);
+      if (!args[0]) {
+        packEndpoint = arrRandomValue(packMethods)
+      } else {
+        if (!packMethods.includes(args[0])) {
+          return msg.channel.send(`Comandos de pack: \n${packMethods.join("\n")}`)
+        }
+        packEndpoint = args[0];
+      }
       pack(packEndpoint, msg);
       break;
 
